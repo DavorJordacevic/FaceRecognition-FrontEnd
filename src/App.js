@@ -24,27 +24,34 @@ class App extends Component {
       data: ""
     })
     console.log(event.target.files[0].name);
-    //this.fileUploadHandler();
   }
+
+  setResponse = (res) => {
+    const items = [];
+    if (res.data['status']==="SUCCESS") {
+    const data = res.data['response'];
+    console.log(res.data['status']);
+    console.log(data);
+    data.forEach((obj,id) => {
+      console.log(obj['name']);
+      items.push(<div key={id++}>Lice {id} => {obj['name']!=null?obj['name']:"Fake"}</div>);
+    })}
+    this.setState({
+      data: items
+    })
+    console.log(res);
+    console.log(res.data);
+  }
+  
 
   fileUploadHandler = () => {
     // HTTP request using axios
     const formData = new FormData();
     formData.append('image', this.state.selectedFile, this.state.selectedFile.name);
     console.log(formData);
-    axios.post('http://localhost:5000/identification', formData)
-      .then(res => {
-        const items = [];
-        Object.keys(res.data).forEach(attribute => {
-          console.log(res.data[attribute]);
-          items.push(<div key={attribute}>{attribute} => {res.data[attribute]}</div>);
-        });
-        this.setState({
-          data: items
-        })
-        console.log(res);
-        console.log(res.data);
-      })
+    axios.post('http://localhost:5000/upload', formData)
+      .then(res => this.setResponse(res))
+      .catch(err => alert("Server not available"))
   }
   render() {
     return (
