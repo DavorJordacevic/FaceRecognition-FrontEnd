@@ -35,7 +35,7 @@ class RecognizePage extends Component {
       console.log(data);
       data.forEach((obj, id) => {
         console.log(obj['name']);
-        items.push(<div key={id++}><b>Face {id} => {obj['name'] != null ? obj['name'] : "Fake"}</b></div>);
+        items.push(<div key={id++}><b>Face {id} => {obj['name'] != null ? obj['name'] : "Not recognized"}</b></div>);
       })
     }
     this.setState({
@@ -51,7 +51,7 @@ class RecognizePage extends Component {
     const formData = new FormData();
     formData.append('image', this.state.selectedFile, this.state.selectedFile.name);
     console.log(formData);
-    axios.post('http://localhost:5000/upload', formData)
+    axios.post('http://localhost:5000/identification', formData)
       .then(res => this.setResponse(res))
       .catch(err => alert("Server not available"))
   }

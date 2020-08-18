@@ -33,7 +33,7 @@ class UploadPage extends Component {
     const formData = new FormData();
     formData.append('image', this.state.selectedFile, this.state.selectedFile.name);
     console.log(formData);
-    axios.post('http://localhost:5000/upload', formData)
+    axios.post('http://localhost:5000/encodeAndInsert', formData)
       .then(res => alert("Server not available"))
       .catch(err => alert("Server not available"))
   }
