@@ -34,7 +34,7 @@ class UploadPage extends Component {
         }
         this.setState({
             files: [this.fileArray],
-            selectedFiles: [this.selectedFileArray],
+            selectedFiles: this.selectedFileArray,
             preview: "",
             hide: "hidden"
         })
@@ -52,7 +52,7 @@ class UploadPage extends Component {
     uploadFiles() {
         // HTTP request using axios
         const formData = new FormData();
-        formData.append('images', this.state.selectedFiles);
+        this.state.selectedFiles.forEach((file) => formData.append('images', file));
         formData.append('name', this.state.nameFace);
         console.log(this.state.selectedFiles);
         axios.post('http://localhost:5000/encodeAndInsert', formData)
