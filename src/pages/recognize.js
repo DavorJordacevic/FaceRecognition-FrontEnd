@@ -12,10 +12,12 @@ class RecognizePage extends Component {
       selectedFile: null,
       preview: "hidden",
       hide: "",
-      data: ""
+      data: "",
+      recognized: ""
     }
     this.handleChange = this.handleChange.bind(this)
   }
+  
   handleChange(event) {
     this.setState({
       file: URL.createObjectURL(event.target.files[0]),
@@ -35,7 +37,7 @@ class RecognizePage extends Component {
       console.log(data);
       data.forEach((obj, id) => {
         console.log(obj['name']);
-        items.push(<div key={id++}><b>Face {id} => {obj['name'] != null ? obj['name'] : "Fake"}</b></div>);
+        items.push(<div key={id++}><b>Face {id} {'=>'} {obj['name'] != null ? obj['name'] : "Fake"}</b></div>);
       })
     }
     this.setState({
@@ -49,12 +51,13 @@ class RecognizePage extends Component {
   fileUploadHandler = () => {
     // HTTP request using axios
     const formData = new FormData();
-    formData.append('image', this.state.selectedFile, this.state.selectedFile.name);
-    console.log(formData);
-    axios.post('http://localhost:5000/upload', formData)
+    formData.append('image', this.state.selectedFile);
+    console.log(this.state.selectedFile);
+    axios.post('http://localhost:5000/recognize', formData)
       .then(res => this.setResponse(res))
       .catch(err => alert("Server not available"))
   }
+
   render() {
     return (
 
@@ -80,8 +83,8 @@ class RecognizePage extends Component {
         </div>
         <div className="uploader">
           <div className="container">
-            <Link to=""><div class="uploader"><button className="btn btn-primary">Home</button></div></Link>
-            <Link to="upload"> <div class="uploader"><button className="btn btn-primary">Upload a Face</button></div></Link>
+            <Link to=""><div className="uploader"><button className="btn btn-primary">Home</button></div></Link>
+            <Link to="upload"> <div className="uploader"><button className="btn btn-primary">Upload a Face</button></div></Link>
           </div>
         </div>
         <footer className="footer">
