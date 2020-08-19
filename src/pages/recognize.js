@@ -17,7 +17,7 @@ class RecognizePage extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
   }
-  
+
   handleChange(event) {
     this.setState({
       file: URL.createObjectURL(event.target.files[0]),
@@ -53,7 +53,7 @@ class RecognizePage extends Component {
     const formData = new FormData();
     formData.append('image', this.state.selectedFile);
     console.log(this.state.selectedFile);
-    axios.post('http://localhost:5000/recognize', formData)
+    axios.post('http://localhost:5000/identification', formData)
       .then(res => this.setResponse(res))
       .catch(err => alert("Server not available"))
   }

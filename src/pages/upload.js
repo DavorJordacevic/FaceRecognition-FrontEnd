@@ -32,30 +32,32 @@ class UploadPage extends Component {
             this.fileArray.push(URL.createObjectURL(this.fileObj[this.index][i]))
             this.selectedFileArray.push(this.fileObj[this.index][i])
         }
-        this.setState({ 
+        this.setState({
             files: [this.fileArray],
             selectedFiles: [this.selectedFileArray],
             preview: "",
-            hide: "hidden" })
-            this.uploaded = true;
+            hide: "hidden"
+        })
+        this.uploaded = true;
         this.index++;
-       
+
     }
 
     updateName(e) {
-        this.setState({ 
-            nameFace: e.target.value })
+        this.setState({
+            nameFace: e.target.value
+        })
     }
 
     uploadFiles() {
-         // HTTP request using axios
-    const formData = new FormData();
-    formData.append('images', this.state.selectedFiles);
-    formData.append('name', this.state.nameFace);
-    console.log(this.state.selectedFiles);
-    axios.post('http://localhost:5000/upload', formData)
-      .then(res =>  alert("Success"))
-      .catch(err => alert("Server not available"))
+        // HTTP request using axios
+        const formData = new FormData();
+        formData.append('images', this.state.selectedFiles);
+        formData.append('name', this.state.nameFace);
+        console.log(this.state.selectedFiles);
+        axios.post('http://localhost:5000/encodeAndInsert', formData)
+            .then(res => alert("Success"))
+            .catch(err => alert("Server not available"))
     }
 
     render() {
@@ -65,8 +67,8 @@ class UploadPage extends Component {
                 <form id="file-upload-form" className="uploader">
                     <label htmlFor="file-upload" id="file-drag">
                         <div className="form-group multi-preview">
-                            {(this.fileArray || []).map((url,id) => (
-                                <img key={id} id="file-image" src={url} alt="Preview" className={this.state.preview}/>
+                            {(this.fileArray || []).map((url, id) => (
+                                <img key={id} id="file-image" src={url} alt="Preview" className={this.state.preview} />
                             ))}
                         </div>
                         <input id="file-upload" type="file" name="fileUpload" className="form-control" onChange={this.uploadMultipleFiles} multiple accept="image/*" />
@@ -93,7 +95,7 @@ class UploadPage extends Component {
                 </div>
                 <footer className="footer">
                     By Davor Jordacevic ©
-       </footer>
+                </footer>
             </div>
         )
     }
