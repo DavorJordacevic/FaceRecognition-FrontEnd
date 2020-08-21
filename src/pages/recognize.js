@@ -37,7 +37,7 @@ class RecognizePage extends Component {
       console.log(data);
       data.forEach((obj, id) => {
         console.log(obj['name']);
-        items.push(<div key={id++}><b>Face {id} {'=>'} {obj['name'] != null ? obj['name'] : "Fake"}</b></div>);
+        items.push(<div key={id++}><b><h3>Face {id} {':  '} {obj['name'] != null ? obj['name'] : "Not recognized"}</h3></b></div>);
       })
     }
     this.setState({
