@@ -2,5 +2,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Run the app
 
-```$ npm install ```
-```$ npm run start ```
+```$ npm install```
+
+```$ npm run start```
