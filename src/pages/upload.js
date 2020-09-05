@@ -49,6 +49,24 @@ class UploadPage extends Component {
         })
     }
 
+    setResponse = (res) => {
+        const items = [];
+        if (res.data['status'] === "SUCCESS") {
+          const data = res.data['response'];
+          console.log(res.data['status']);
+          console.log(data);
+             items.push(<div key={1}><b><h3>SUCCESS</h3></b></div>);
+        }else{
+          const data = res.data['response'];
+          items.push(<div key={1}><b><h3>{data}</h3></b></div>);
+        }
+        this.setState({
+          data: items
+        })
+        console.log(res);
+        console.log(res.data);
+      }
+
     uploadFiles() {
         // HTTP request using axios
         const formData = new FormData();
@@ -56,7 +74,7 @@ class UploadPage extends Component {
         formData.append('name', this.state.nameFace);
         console.log(this.state.selectedFiles);
         axios.post('http://localhost:5000/encodeAndInsert', formData)
-            .then(res => alert("Success"))
+            .then(res => this.setResponse(res))
             .catch(err => alert("Server not available"))
     }
 

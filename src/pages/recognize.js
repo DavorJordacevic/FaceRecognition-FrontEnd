@@ -39,6 +39,9 @@ class RecognizePage extends Component {
         console.log(obj['name']);
         items.push(<div key={id++}><b><h3>Face {id} {': '} {obj['name'] != null ? obj['name'] : "Not recognized"}</h3></b></div>);
       })
+    }else{
+      const data = res.data['response'];
+      items.push(<div key={1}><b><h3>{data}</h3></b></div>);
     }
     this.setState({
       data: items
